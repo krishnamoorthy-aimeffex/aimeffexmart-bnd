@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy, Profile } from "passport-google-oauth20";
-import { Strategy as FacebookStrategy } from "passport-facebook";
+import { Strategy as FacebookStrategy, Profile as FacebookProfile } from "passport-facebook";
 import dotenv from "dotenv";
 import User from "../models/User";
 
@@ -22,7 +22,7 @@ passport.use(
       _accessToken: string,
       _refreshToken: string,
       profile: Profile,
-      done
+      done: (err: Error | null, user?: any) => void
     ) => {
       try {
         // ✅ Google always returns at least one email for verified apps
@@ -66,7 +66,7 @@ passport.use(
       callbackURL: "/api/auth/facebook/callback",
       profileFields: ["id", "displayName", "emails"],
     },
-    async (_accessToken, _refreshToken, profile, done) => {
+    async (_accessToken: string, _refreshToken: string, profile: FacebookProfile, done: any) => {
       try {
         const email = profile.emails?.[0]?.value;
 
