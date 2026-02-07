@@ -23,6 +23,18 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 import authRoutes from "./routes/auth.routes";
 app.use("/api/auth", authRoutes);
 
+import productRoutes from "./routes/product.routers";
+app.use("/api/products", productRoutes);
+
+import cartRoutes from "./routes/cart.routes";
+app.use("/api/cart", cartRoutes);
+
+import wishListRoutes from "./routes/wishList.routes";
+app.use("/api/wishlist", wishListRoutes);
+
+import userRoutes from "./routes/users.routes";
+app.use("/api/users", userRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 // Connect to database before starting server
