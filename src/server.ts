@@ -32,10 +32,18 @@ app.use("/api/users", userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-// Connect to database before starting server
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-  });
-});
+const start = async () => {
+  try {
+    await connectDB();
+
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on http://localhost:${PORT}`);
+    });
+  } catch (error: any) {
+    console.error("❌ Failed to start server:", error.message ?? error);
+    process.exit(1);
+  }
+};
+
+start();
   
