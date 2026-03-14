@@ -97,7 +97,7 @@ router.get(
   "/google/callback",
   passport.authenticate("google", {
     session: false,
-    failureRedirect: "http://localhost:5173/login",
+    failureRedirect: `${process.env.FRONTEND_URL}/login`,
   }),
   (req: any, res) => {
     try {
@@ -117,13 +117,13 @@ router.get(
       };
 
       const encodedUser = encodeURIComponent(JSON.stringify(userData));
-      const redirectUrl = `http://localhost:5173/oauth-success?token=${token}&user=${encodedUser}`;
+      const redirectUrl = `${process.env.FRONTEND_URL}/oauth-success?token=${token}&user=${encodedUser}`;
 
 
       res.redirect(redirectUrl);
     } catch (error: any) {
       console.error("❌ Google OAuth Error:", error);
-      res.redirect("http://localhost:5173/login?error=oauth_failed");
+      res.redirect(`${process.env.FRONTEND_URL}/login?error=oauth_failed`);
     }
   }
 );
@@ -143,7 +143,7 @@ router.get(
   "/facebook/callback",
   passport.authenticate("facebook", {
     session: false,
-    failureRedirect: "http://localhost:5173/login",
+    failureRedirect: `${process.env.FRONTEND_URL}/login`,
   }),
   (req: any, res) => {
     try {
@@ -162,14 +162,14 @@ router.get(
       };
 
       const encodedUser = encodeURIComponent(JSON.stringify(userData));
-      const redirectUrl = `http://localhost:5173/oauth-success?token=${token}&user=${encodedUser}`;
+      const redirectUrl = `${process.env.FRONTEND_URL}/oauth-success?token=${token}&user=${encodedUser}`;
 
       console.log("🟢 Facebook OAuth Success - Redirecting to:", redirectUrl);
 
       res.redirect(redirectUrl);
     } catch (error: any) {
       console.error("❌ Facebook OAuth Error:", error);
-      res.redirect("http://localhost:5173/login?error=oauth_failed");
+      res.redirect(`${process.env.FRONTEND_URL}/login?error=oauth_failed`);
     }
   }
 );
