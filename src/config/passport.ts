@@ -1,6 +1,6 @@
 import passport from "passport";
-import { Strategy as GoogleStrategy, Profile } from "passport-google-oauth20";
-import { Strategy as FacebookStrategy, Profile as FacebookProfile } from "passport-facebook";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { Strategy as FacebookStrategy } from "passport-facebook";
 import dotenv from "dotenv";
 import User from "../models/User";
 
@@ -21,7 +21,7 @@ passport.use(
     async (
       _accessToken: string,
       _refreshToken: string,
-      profile: Profile,
+      profile: any,
       done: (err: Error | null, user?: any) => void
     ) => {
       try {
@@ -66,7 +66,7 @@ passport.use(
       callbackURL: "/api/auth/facebook/callback",
       profileFields: ["id", "displayName", "emails"],
     },
-    async (_accessToken: string, _refreshToken: string, profile: FacebookProfile, done: any) => {
+    async (_accessToken: string, _refreshToken: string, profile: any, done: any) => {
       try {
         const email = profile.emails?.[0]?.value;
 
